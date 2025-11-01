@@ -8,10 +8,10 @@ import torch
 from typing import List, Dict, Tuple
 from .decomposer import VideoDecomposer
 from .knowledge_base import KnowledgeBase
-from ..theories.musical_theories import CircleOfFifthsMapper, JazzHarmonyMapper
-from ..theories.physics_theories import PhysicsMapper
-from ..pmc_vfe.vfe_gaussian import vfe_gaussian
-from ..pmc_vfe.vfe_categorical import vfe_categorical
+from theories.musical_theories import CircleOfFifthsMapper, JazzHarmonyMapper
+from theories.physics_theories import PhysicsMapper
+from pmc_vfe.vfe_gaussian import vfe_gaussian
+from pmc_vfe.vfe_categorical import vfe_categorical
 
 
 class IncrementalTrainer:
