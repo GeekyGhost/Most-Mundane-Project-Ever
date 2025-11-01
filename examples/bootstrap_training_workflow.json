@@ -21,9 +21,9 @@
     "3": {
       "type": "QVT_IncrementalTrain",
       "inputs": {
-        "knowledge_base": {"node": 2, "output": "knowledge_base"},
-        "video_batch": {"node": 1, "output": "video_batch"},
-        "batch_metadata": {"node": 1, "output": "batch_metadata"},
+        "knowledge_base": ["2", 0],
+        "video_batch": ["1", 0],
+        "batch_metadata": ["1", 1],
         "generations": 50,
         "beta": 0.7
       }
@@ -31,15 +31,9 @@
     "4": {
       "type": "QVT_SaveKnowledgeBase",
       "inputs": {
-        "knowledge_base": {"node": 3, "output": "updated_kb"},
+        "knowledge_base": ["3", 0],
         "save_path": "./knowledge_base.pkl"
       }
     }
-  },
-  "connections": [
-    {"from": "1.video_batch", "to": "3.video_batch"},
-    {"from": "1.batch_metadata", "to": "3.batch_metadata"},
-    {"from": "2.knowledge_base", "to": "3.knowledge_base"},
-    {"from": "3.updated_kb", "to": "4.knowledge_base"}
-  ]
+  }
 }
