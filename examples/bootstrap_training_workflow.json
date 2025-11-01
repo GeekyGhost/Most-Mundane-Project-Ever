@@ -1,0 +1,45 @@
+{
+  "workflow_name": "Bootstrap Training - First 10 Videos",
+  "description": "Initial training session with 10 videos to bootstrap the knowledge base",
+  "nodes": {
+    "1": {
+      "type": "QVT_LoadVideoBatch",
+      "inputs": {
+        "video_directory": "./test_videos",
+        "pattern": "*.mp4",
+        "max_videos": 10,
+        "max_duration": 5.0
+      }
+    },
+    "2": {
+      "type": "QVT_LoadKnowledgeBase",
+      "inputs": {
+        "knowledge_base_path": "./knowledge_base.pkl",
+        "create_if_missing": true
+      }
+    },
+    "3": {
+      "type": "QVT_IncrementalTrain",
+      "inputs": {
+        "knowledge_base": {"node": 2, "output": "knowledge_base"},
+        "video_batch": {"node": 1, "output": "video_batch"},
+        "batch_metadata": {"node": 1, "output": "batch_metadata"},
+        "generations": 50,
+        "beta": 0.7
+      }
+    },
+    "4": {
+      "type": "QVT_SaveKnowledgeBase",
+      "inputs": {
+        "knowledge_base": {"node": 3, "output": "updated_kb"},
+        "save_path": "./knowledge_base.pkl"
+      }
+    }
+  },
+  "connections": [
+    {"from": "1.video_batch", "to": "3.video_batch"},
+    {"from": "1.batch_metadata", "to": "3.batch_metadata"},
+    {"from": "2.knowledge_base", "to": "3.knowledge_base"},
+    {"from": "3.updated_kb", "to": "4.knowledge_base"}
+  ]
+}
